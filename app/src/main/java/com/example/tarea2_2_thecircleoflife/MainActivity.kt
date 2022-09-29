@@ -44,9 +44,22 @@ class MainActivity : AppCompatActivity() {
     // Se crea un cuadro de texto con un mensaje
     fun mensajeTexto(){
         val mensaje = AlertDialog.Builder(this)
-        mensaje.setTitle("Titulo del mensaje")
-        mensaje.setMessage("Esto es el mensaje del mensaje de dios")
+        mensaje.setTitle("Aplicación en pausa")
+        mensaje.setMessage("Pausado por problemas técnicos")
         mensaje.show()
+    }
+
+    fun cambiarPantalla(){
+
+
+        val cambiarPantalla = Intent(this,SegundaPantalla ::class.java).apply {
+
+        }
+
+        startActivity(cambiarPantalla)
+
+
+
     }
 
 
@@ -69,27 +82,25 @@ class MainActivity : AppCompatActivity() {
         //Se inicia el método con el canal cuando se inicia la aplicacion
         createNotificationChannel()
 
-        //Se ejecuta el método del mensaje cuando se inicia la aplicación
-        mensajeTexto()
-
 
     }
 
     override fun onRestart() {
         super.onRestart()
         Log.d(TAG, "Ciclo de vida - onRestart  - David Perea García");
+
     }
 
     override fun onStart() {
         super.onStart()
 
 
-        // Se crea un mensaje pequeño abajo
-        Toast.makeText(this@MainActivity, "buenos dias", Toast.LENGTH_LONG).show()
+        /* Se crea un mensaje pequeño abajo
+        Toast.makeText(this@MainActivity, "buenos dias", Toast.LENGTH_LONG).show()*/
 
         Log.d(TAG, "Ciclo de vida - onStart  - David Perea García");
 
-        // 
+        //
         with(NotificationManagerCompat.from(this)) {
             // notificationId is a unique int for each notification that you must define
             notify(2, builder.build())
@@ -110,6 +121,8 @@ class MainActivity : AppCompatActivity() {
         super.onPause()
         Log.d(TAG, "Ciclo de vida - onPause  - David Perea García");
 
+        //Se ejecuta el método del mensaje cuando se inicia la aplicación
+        cambiarPantalla()
     }
 
     override fun onStop() {
