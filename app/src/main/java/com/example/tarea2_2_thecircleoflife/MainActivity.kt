@@ -6,18 +6,23 @@ import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.ContentValues.TAG
 import android.content.Context
-
 import android.content.Intent
+import android.media.Image
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
 import android.util.Log
+import android.widget.ImageView
+import android.os.Bundle
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
-
 import android.widget.Toast;
+import androidx.core.widget.ImageViewCompat
+
+import androidx.constraintlayout.widget.ConstraintLayout
 
 class MainActivity : AppCompatActivity() {
+
+
 
 
     private fun createNotificationChannel() {
@@ -26,17 +31,27 @@ class MainActivity : AppCompatActivity() {
 
 
         //Se crea el canal para enlazarlo con la notificación
-            val name = "Gallina"
-            val descriptionText = "xd"
-            val importance = NotificationManager.IMPORTANCE_DEFAULT
-            val channel = NotificationChannel("2", name, importance).apply {
-                description = descriptionText
-            }
+        val name = "Gallina"
+        val descriptionText = "xd"
+        val importance = NotificationManager.IMPORTANCE_DEFAULT
+        val channel = NotificationChannel("2", name, importance).apply {
+            description = descriptionText
+        }
 
-        // Register the channel with the system
-            val notificationManager: NotificationManager =
-                getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-                notificationManager.createNotificationChannel(channel)
+    }
+
+
+
+    private fun mostrarImagen(){
+
+        setContentView(R.layout.activity_main);
+
+        val constraintLayout = findViewById(R.id.primeraPantalla) as ConstraintLayout
+
+        val imageView = ImageView(this)
+
+        imageView.setImageResource(R.drawable.`as`)
+        constraintLayout.addView(imageView)
 
         }
 
@@ -59,7 +74,6 @@ class MainActivity : AppCompatActivity() {
         startActivity(cambiarPantalla)
 
 
-
     }
 
 
@@ -74,6 +88,7 @@ class MainActivity : AppCompatActivity() {
         .setPriority(NotificationCompat.PRIORITY_DEFAULT)
 
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -83,11 +98,13 @@ class MainActivity : AppCompatActivity() {
         createNotificationChannel()
 
 
+
     }
 
     override fun onRestart() {
         super.onRestart()
         Log.d(TAG, "Ciclo de vida - onRestart  - David Perea García");
+
 
     }
 
@@ -95,8 +112,7 @@ class MainActivity : AppCompatActivity() {
         super.onStart()
 
 
-        /* Se crea un mensaje pequeño abajo
-        Toast.makeText(this@MainActivity, "buenos dias", Toast.LENGTH_LONG).show()*/
+
 
         Log.d(TAG, "Ciclo de vida - onStart  - David Perea García");
 
@@ -111,9 +127,13 @@ class MainActivity : AppCompatActivity() {
 
 
 
+
+
     override fun onResume() {
         super.onResume()
         Log.d(TAG, "Ciclo de vida - onResume  - David Perea García");
+
+
 
     }
 
@@ -121,20 +141,24 @@ class MainActivity : AppCompatActivity() {
         super.onPause()
         Log.d(TAG, "Ciclo de vida - onPause  - David Perea García");
 
-        //Se ejecuta el método del mensaje cuando se inicia la aplicación
-        cambiarPantalla()
+        mostrarImagen()
+
     }
 
     override fun onStop() {
         super.onStop()
         Log.d(TAG, "Ciclo de vida - onStop  - David Perea García");
 
-
+        cambiarPantalla()
     }
 
     override fun onDestroy() {
+        // Se crea un mensaje pequeño abajo
+        Toast.makeText(this@MainActivity, "Hasta la próxima", Toast.LENGTH_LONG).show()
+
         super.onDestroy()
         Log.d(TAG, "Ciclo de vida - onDestroy  - David Perea García");
+
 
     }
 
